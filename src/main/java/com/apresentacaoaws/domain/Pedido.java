@@ -53,8 +53,8 @@ public class Pedido implements Serializable {
 	private EstadoPedido estadoS;
 	
 	@ManyToOne
-	@JoinColumn(name = "user_id", nullable = false)
-	private Usuario usuario;
+	@JoinColumn(name = "owner_id", nullable = false)
+	private Usuario owner;
 	
 	@OneToMany(mappedBy = "pedido")
 	private List<PedidoEstagio> estagios = new ArrayList<PedidoEstagio>();

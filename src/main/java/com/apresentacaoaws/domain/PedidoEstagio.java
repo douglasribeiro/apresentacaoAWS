@@ -51,6 +51,6 @@ public class PedidoEstagio implements Serializable {
 	private Pedido pedido;
 	
 	@ManyToOne
-	@JoinColumn(name = "usuario_id", nullable = false)
-	private Usuario usuario;
+	@JoinColumn(name = "owner_id", nullable = false)
+	private Usuario owner;
 }
