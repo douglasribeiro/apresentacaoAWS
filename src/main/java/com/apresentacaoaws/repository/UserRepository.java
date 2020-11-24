@@ -2,18 +2,27 @@ package com.apresentacaoaws.repository;
 
 import java.util.Optional;
 
-import org.apache.catalina.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.apresentacaoaws.domain.Usuario;
+import com.apresentacaoaws.domain.User;
+import com.apresentacaoaws.domain.enuns.Role;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long>{
+public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 
-	public Usuario getByEmaiAndPassword(String nome, String password);
+	@Query("SELECT u FROM user u WHERE email = ?1 AND password = ?2")
+	public Optional<User> login(String email, String password);
 	
-	@Query("SELECT FROM Usuario WHERE email = ?1 AND password = ?2")
-	public Optional<Usuario>  login(String nome, String password);
+	@Transactional(readOnly = false)
+	@Modifying
+	@Query("UPDATE user SET role = ?2 WHERE id = ?1")
+	public int updateRole(Long id, Role role);
+	
+	public Optional<User> findByEmail(String email);
+	
 }
