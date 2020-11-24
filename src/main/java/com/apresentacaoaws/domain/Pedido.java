@@ -50,7 +50,7 @@ public class Pedido implements Serializable {
 	
 	@Column(length = 12, nullable = false)
 	@Enumerated(EnumType.STRING)
-	private EstadoPedido estadoS;
+	private EstadoPedido estado;
 	
 	@ManyToOne
 	@JoinColumn(name = "owner_id", nullable = false)
