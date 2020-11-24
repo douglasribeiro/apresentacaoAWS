@@ -1,5 +1,6 @@
 package com.apresentacaoaws.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.apresentacaoaws.domain.enuns.EstadoPedido;
 import com.apresentacaoaws.domain.enuns.Role;
 
 import lombok.AllArgsConstructor;
@@ -25,8 +25,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Usuario {
+public class Usuario implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
