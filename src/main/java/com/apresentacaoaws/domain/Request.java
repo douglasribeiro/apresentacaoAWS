@@ -129,6 +129,7 @@ public class Request implements Serializable{
 		this.owner = owner;
 	}
 
+	@JsonIgnore
 	public List<RequestStage> getStages() {
 		return stages;
 	}

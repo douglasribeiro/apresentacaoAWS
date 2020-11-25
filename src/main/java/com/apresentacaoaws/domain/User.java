@@ -50,6 +50,7 @@ public class User implements Serializable{
 	@OneToMany(mappedBy = "owner")
 	private List<Request> requests = new ArrayList<Request>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "owner")
 	private List<RequestStage> stages = new ArrayList<RequestStage>();
 	
@@ -107,6 +108,7 @@ public class User implements Serializable{
 		this.role = role;
 	}
 
+	@JsonIgnore
 	public List<Request> getRequests() {
 		return requests;
 	}
