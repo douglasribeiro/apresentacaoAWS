@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.apresentacaoaws.domain.Request;
 import com.apresentacaoaws.domain.User;
 import com.apresentacaoaws.dto.UserLoginDto;
+import com.apresentacaoaws.model.PageModel;
+import com.apresentacaoaws.model.PageRequestModel;
 import com.apresentacaoaws.service.RequestService;
 import com.apresentacaoaws.service.UserService;
 
@@ -46,9 +49,14 @@ public class UserResource {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<User>> listAll(){
-		List<User> users = userService.listAll();
-		return ResponseEntity.ok(users);
+	public ResponseEntity<PageModel<User>> listAll(
+			@RequestParam(value = "page") int page,
+			@RequestParam(value = "size") int size){
+		
+		PageRequestModel pr = new PageRequestModel(page, size);
+		PageModel<User> pm = userService.listAllOnLazyModel(pr);
+		
+		return ResponseEntity.ok(pm);
 	}
 	
 	@PostMapping("/login")
