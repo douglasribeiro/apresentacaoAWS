@@ -1,7 +1,5 @@
 package com.apresentacaoaws.resource;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,9 +64,13 @@ public class UserResource {
 	}
 	
 	@GetMapping("/{id}/requests")
-	public ResponseEntity<List<Request>> listAllRequestById(@PathVariable(name = "id") Long id){
-		List<Request> requests = requestservice.listAllByOwnerId(id);
-		return ResponseEntity.ok(requests);
+	public ResponseEntity<PageModel<Request>> listAllRequestById(
+			@PathVariable(name = "id") Long id,
+			@RequestParam(value = "size") int size,
+			@RequestParam(value = "page") int page){
+		PageRequestModel pr = new PageRequestModel(page, size);
+		PageModel<Request> pm = requestservice.listAllByOwnerIdOnLazyModel(id,pr);
+		return ResponseEntity.ok(pm);
 	}
 	
 }
