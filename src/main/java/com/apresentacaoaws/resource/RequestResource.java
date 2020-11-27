@@ -27,6 +27,7 @@ public class RequestResource {
 	
 	@Autowired private RequestService requestService;
 	@Autowired private RequestStageService requestStageService;
+	@Autowired private RequestStageService stageService;
 	
 	@PostMapping
 	public ResponseEntity<Request> save(@RequestBody Request request){
@@ -64,7 +65,7 @@ public class RequestResource {
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size) {
 		PageRequestModel pr = new PageRequestModel(page, size);
-		//PageModel<RequestStage> pm = stageService.listAllByRequestIdOnLazyModel(id, pr);
-		return null;
+		PageModel<RequestStage> pm = stageService.listAllByRequestIdOnLazyModel(id, pr);
+		return ResponseEntity.ok(pm);
 	}
 }
