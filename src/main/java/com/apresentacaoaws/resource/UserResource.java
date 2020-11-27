@@ -1,4 +1,6 @@
-package com.apresentacaoaws.resource;
+ package com.apresentacaoaws.resource;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.apresentacaoaws.domain.Request;
 import com.apresentacaoaws.domain.User;
 import com.apresentacaoaws.dto.UserLoginDto;
+import com.apresentacaoaws.dto.UserSaveDto;
+import com.apresentacaoaws.dto.UserUpdateDto;
 import com.apresentacaoaws.dto.UserUpdateRoleDto;
 import com.apresentacaoaws.model.PageModel;
 import com.apresentacaoaws.model.PageRequestModel;
@@ -30,13 +34,15 @@ public class UserResource {
 	@Autowired private RequestService requestservice;
 	
 	@PostMapping
-	public ResponseEntity<User> save(@RequestBody User user){
-		User userCreated = userService.save(user);
+	public ResponseEntity<User> save(@RequestBody @Valid UserSaveDto userDto){
+		User userToSave = userDto.transformToUser();
+		User userCreated = userService.save(userToSave);
 		return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<User> update(@PathVariable(name = "id") Long id, @RequestBody User user){
+	public ResponseEntity<User> update(@PathVariable(name = "id") Long id, @RequestBody @Valid UserUpdateDto userDto){
+		User user = userDto.transformToUser();
 		user.setId(id);
 		User updatedUser = userService.update(user);
 		return ResponseEntity.ok(updatedUser);
@@ -60,7 +66,7 @@ public class UserResource {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<User> login(@RequestBody UserLoginDto user){
+	public ResponseEntity<User> login(@RequestBody @Valid UserLoginDto user){
 		User userLoged = userService.login(user.getEmail(), user.getPassword());
 		return ResponseEntity.ok(userLoged);
 	}
@@ -73,10 +79,10 @@ public class UserResource {
 		PageRequestModel pr = new PageRequestModel(page, size);
 		PageModel<Request> pm = requestservice.listAllByOwnerIdOnLazyModel(id,pr);
 		return ResponseEntity.ok(pm);
-	}
+	}	
 	
 	@PatchMapping("/role/{id}")
-	public ResponseEntity<?> updateRole(@PathVariable(name = "id") Long id, @RequestBody UserUpdateRoleDto userDto){
+	public ResponseEntity<?> updateRole(@PathVariable(name = "id") Long id, @RequestBody @Valid UserUpdateRoleDto userDto){
 		User user = new User();
 		user.setId(id);
 		user.setRole(userDto.getRole());

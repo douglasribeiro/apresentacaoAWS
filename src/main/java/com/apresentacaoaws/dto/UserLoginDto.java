@@ -1,8 +1,14 @@
 package com.apresentacaoaws.dto;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 public class UserLoginDto {
 
+	@Email(message = "Endereço de e-mail invalido")
 	private String email;
+	
+	@NotBlank(message = "password obrigatorio")
 	private String password;
 	
 	public UserLoginDto() {}
