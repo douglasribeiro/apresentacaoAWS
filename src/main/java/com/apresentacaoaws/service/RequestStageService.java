@@ -10,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.apresentacaoaws.domain.Request;
 import com.apresentacaoaws.domain.RequestStage;
 import com.apresentacaoaws.domain.enuns.RequestState;
 import com.apresentacaoaws.exception.NotFoundException;

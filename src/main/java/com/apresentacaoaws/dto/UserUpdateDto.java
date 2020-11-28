@@ -12,7 +12,6 @@ import javax.validation.constraints.Size;
 import com.apresentacaoaws.domain.Request;
 import com.apresentacaoaws.domain.RequestStage;
 import com.apresentacaoaws.domain.User;
-import com.apresentacaoaws.domain.enuns.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class UserUpdateDto {

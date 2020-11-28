@@ -15,7 +15,6 @@ import javax.persistence.OneToMany;
 
 import com.apresentacaoaws.domain.enuns.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
