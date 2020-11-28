@@ -69,7 +69,7 @@ public class Request implements Serializable{
 	public Request() {}
 
 	public Request(Long id, String subject, String description, Date creationDate, RequestState state, User owner,
-			List<RequestStage> stages, List<RequestFile> files) {
+			List<RequestStage> stages) {
 		super();
 		this.id = id;
 		this.subject = subject;
@@ -78,7 +78,6 @@ public class Request implements Serializable{
 		this.state = state;
 		this.owner = owner;
 		this.stages = stages;
-		this.files = files;
 	}
 
 	public Long getId() {
