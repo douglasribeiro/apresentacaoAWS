@@ -21,14 +21,7 @@ import javax.persistence.TemporalType;
 import com.apresentacaoaws.domain.enuns.RequestState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter @Setter
 @Entity(name = "request")
 public class Request implements Serializable{
 	
