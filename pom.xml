@@ -10,9 +10,8 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.spring-course</groupId>
-	<artifactId>spring-course</artifactId>
-	<version>0.0.1</version>
-	<name>spring-course</name>
+	<artifactId>pedidos</artifactId>
+	<name>pedidos</name>
 	<description>SPRING - RESTful API</description>
 	<packaging>war</packaging>
 
@@ -66,6 +65,10 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 
 	</dependencies>
 
