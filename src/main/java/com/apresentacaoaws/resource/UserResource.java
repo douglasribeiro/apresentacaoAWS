@@ -5,6 +5,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +34,7 @@ public class UserResource {
 
 	@Autowired private UserService userService;
 	@Autowired private RequestService requestservice;
+	@Autowired private AuthenticationManager authManager; 
 	
 	@PostMapping
 	public ResponseEntity<User> save(@RequestBody @Valid UserSaveDto userDto){
@@ -67,8 +70,10 @@ public class UserResource {
 	
 	@PostMapping("/login")
 	public ResponseEntity<User> login(@RequestBody @Valid UserLoginDto user){
-		User userLoged = userService.login(user.getEmail(), user.getPassword());
-		return ResponseEntity.ok(userLoged);
+		//User userLoged = userService.login(user.getEmail(), user.getPassword());
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
+		Authentication auth = authManager.authenticate(token);
+		return ResponseEntity.ok(null);
 	}
 	
 	@GetMapping("/{id}/requests")
