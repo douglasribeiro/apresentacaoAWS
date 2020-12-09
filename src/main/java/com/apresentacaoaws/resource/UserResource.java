@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.apresentacaoaws.domain.Request;
 import com.apresentacaoaws.domain.User;
 import com.apresentacaoaws.dto.UserLoginDto;
+import com.apresentacaoaws.dto.UserLoginResponseDto;
 import com.apresentacaoaws.dto.UserSaveDto;
 import com.apresentacaoaws.dto.UserUpdateDto;
 import com.apresentacaoaws.dto.UserUpdateRoleDto;
@@ -76,7 +77,7 @@ public class UserResource {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody @Valid UserLoginDto user){
+	public ResponseEntity<UserLoginResponseDto> login(@RequestBody @Valid UserLoginDto user){
 		//User userLoged = userService.login(user.getEmail(), user.getPassword());
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
 		Authentication auth = authManager.authenticate(token);
@@ -91,9 +92,7 @@ public class UserResource {
 				.map(authority -> authority.getAuthority())
 				.collect(Collectors.toList());
 		
-		String jwt = jwtManager.createToken(email, roles);
-		
-		return ResponseEntity.ok(jwt);
+		return ResponseEntity.ok(jwtManager.createToken(email, roles));
 	}
 	
 	@GetMapping("/{id}/requests")
